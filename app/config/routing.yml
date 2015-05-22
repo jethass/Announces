@@ -1,0 +1,11 @@
+annonces_site:
+    resource: "@AnnoncesSiteBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+annonces_utilisateurs:
+    resource: "@AnnoncesUtilisateursBundle/Controller/"
+    type:     annotation
+    prefix:   /
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
