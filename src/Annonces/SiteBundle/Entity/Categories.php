@@ -28,6 +28,10 @@ class Categories
      */
     private $image;
     
+    /**
+     * @ORM\OneToMany(targetEntity="Annonces\SiteBundle\Entity\Annonces", mappedBy="categorie", cascade={"persist", "remove"})
+     */
+    private $annonces;
 
     /**
      * @var string
@@ -91,5 +95,45 @@ class Categories
     public function getImage()
     {
         return $this->image;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->annonces = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add annonces
+     *
+     * @param \Annonces\SiteBundle\Entity\Annonces $annonces
+     * @return Categories
+     */
+    public function addAnnonce(\Annonces\SiteBundle\Entity\Annonces $annonces)
+    {
+        $this->annonces[] = $annonces;
+
+        return $this;
+    }
+
+    /**
+     * Remove annonces
+     *
+     * @param \Annonces\SiteBundle\Entity\Annonces $annonces
+     */
+    public function removeAnnonce(\Annonces\SiteBundle\Entity\Annonces $annonces)
+    {
+        $this->annonces->removeElement($annonces);
+    }
+
+    /**
+     * Get annonces
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAnnonces()
+    {
+        return $this->annonces;
     }
 }

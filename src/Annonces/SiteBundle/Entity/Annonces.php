@@ -33,6 +33,12 @@ class Annonces
      */
      private $utilisateur;
 
+     /**
+     * @ORM\ManyToOne(targetEntity="Annonces\SiteBundle\Entity\Categories",inversedBy="annonces")
+     * @ORM\JoinColumn(nullable=false,name="categorie_id", referencedColumnName="id")
+     */
+     private $categorie;
+
 
     /**
      * @var string
@@ -269,5 +275,28 @@ class Annonces
     public function getUtilisateur()
     {
         return $this->utilisateur;
+    }
+
+    /**
+     * Set categorie
+     *
+     * @param \Annonces\SiteBundle\Entity\Categories $categorie
+     * @return Annonces
+     */
+    public function setCategorie(\Annonces\SiteBundle\Entity\Categories $categorie)
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    /**
+     * Get categorie
+     *
+     * @return \Annonces\SiteBundle\Entity\Categories 
+     */
+    public function getCategorie()
+    {
+        return $this->categorie;
     }
 }
