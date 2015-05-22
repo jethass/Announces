@@ -24,7 +24,7 @@ class Categories
 
     /**
      * @ORM\OneToOne(targetEntity="Annonces\SiteBundle\Entity\Media", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $image;
     
@@ -41,6 +41,10 @@ class Categories
     private $nom;
 
 
+    public function __toString(){
+        return $this->getNom();
+    }
+    
     /**
      * Get id
      *

@@ -8,11 +8,13 @@
             <tr>
                 <th>Id</th>
                 <th>Titre</th>
-                <th>Createdat</th>
-                <th>Modifiedat</th>
+                <th>Date</th>
                 <th>Description</th>
                 <th>Prix</th>
                 <th>Active</th>
+                <th>Telephone</th>
+                <th>Affichetelephone</th>
+                <th>Email</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -21,11 +23,13 @@
             <tr>
                 <td><a href="{{ path('annonces_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.titre }}</td>
-                <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if entity.modifiedAt %}{{ entity.modifiedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.date %}{{ entity.date|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{{ entity.description }}</td>
                 <td>{{ entity.prix }}</td>
                 <td>{{ entity.active }}</td>
+                <td>{{ entity.telephone }}</td>
+                <td>{{ entity.afficheTelephone }}</td>
+                <td>{{ entity.email }}</td>
                 <td>
                 <ul>
                     <li>

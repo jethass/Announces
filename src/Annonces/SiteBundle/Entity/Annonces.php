@@ -3,6 +3,7 @@
 namespace Annonces\SiteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Annonces
@@ -48,18 +49,11 @@ class Annonces
     private $titre;
 
     /**
-     * @var \DateTime
+     * @var date
      *
-     * @ORM\Column(name="created_at", type="datetime")
+     * @ORM\Column(name="date", type="datetime", nullable=false)
      */
-    private $createdAt;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="modified_at", type="datetime")
-     */
-    private $modifiedAt;
+    private $date;
 
     /**
      * @var string
@@ -82,6 +76,41 @@ class Annonces
      */
     private $active;
 
+    /**
+     * @var telephone
+     *
+     * @ORM\Column(name="telephone", type="string", nullable=true)
+     */
+    private $telephone;
+ 
+    /**
+     * @var afficheTelephone
+     *
+     * @ORM\Column(name="affiche_telephone", type="boolean", nullable=true)
+     */
+    private $afficheTelephone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255)
+     *
+     * @Assert\NotBlank()
+     * @Assert\NotNull()
+     * @Assert\Email(
+     *     message = "'{{ value }}' n'est pas un email valide."
+     * )
+     */
+    private $email;
+
+
+   public function __construct(){
+        $this->date = new \DateTime('now');
+    }
+
+    public function __toString(){
+        return $this->getTitre();
+    }
 
     /**
      * Get id
@@ -117,49 +146,26 @@ class Annonces
     }
 
     /**
-     * Set createdAt
+     * Set date
      *
-     * @param \DateTime $createdAt
+     * @param \DateTime $date
      * @return Annonces
      */
-    public function setCreatedAt($createdAt)
+    public function setDate($date)
     {
-        $this->createdAt = $createdAt;
+        $this->date = $date;
 
         return $this;
     }
 
     /**
-     * Get createdAt
+     * Get date
      *
      * @return \DateTime 
      */
-    public function getCreatedAt()
+    public function getDate()
     {
-        return $this->createdAt;
-    }
-
-    /**
-     * Set modifiedAt
-     *
-     * @param \DateTime $modifiedAt
-     * @return Annonces
-     */
-    public function setModifiedAt($modifiedAt)
-    {
-        $this->modifiedAt = $modifiedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get modifiedAt
-     *
-     * @return \DateTime 
-     */
-    public function getModifiedAt()
-    {
-        return $this->modifiedAt;
+        return $this->date;
     }
 
     /**
@@ -229,6 +235,75 @@ class Annonces
     public function getActive()
     {
         return $this->active;
+    }
+
+    /**
+     * Set telephone
+     *
+     * @param string $telephone
+     * @return Annonces
+     */
+    public function setTelephone($telephone)
+    {
+        $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    /**
+     * Get telephone
+     *
+     * @return string 
+     */
+    public function getTelephone()
+    {
+        return $this->telephone;
+    }
+
+    /**
+     * Set afficheTelephone
+     *
+     * @param boolean $afficheTelephone
+     * @return Annonces
+     */
+    public function setAfficheTelephone($afficheTelephone)
+    {
+        $this->afficheTelephone = $afficheTelephone;
+
+        return $this;
+    }
+
+    /**
+     * Get afficheTelephone
+     *
+     * @return boolean 
+     */
+    public function getAfficheTelephone()
+    {
+        return $this->afficheTelephone;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Annonces
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 
     /**

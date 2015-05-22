@@ -14,12 +14,8 @@
                 <td>{{ entity.titre }}</td>
             </tr>
             <tr>
-                <th>Createdat</th>
-                <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Modifiedat</th>
-                <td>{{ entity.modifiedAt|date('Y-m-d H:i:s') }}</td>
+                <th>Date</th>
+                <td>{{ entity.date|date('Y-m-d H:i:s') }}</td>
             </tr>
             <tr>
                 <th>Description</th>
@@ -32,6 +28,18 @@
             <tr>
                 <th>Active</th>
                 <td>{{ entity.active }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ entity.telephone }}</td>
+            </tr>
+            <tr>
+                <th>Affichetelephone</th>
+                <td>{{ entity.afficheTelephone }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ entity.email }}</td>
             </tr>
         </tbody>
     </table>
