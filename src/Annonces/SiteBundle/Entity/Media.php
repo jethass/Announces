@@ -40,6 +40,12 @@ class Media
     protected $file;
 
     /**
+    * @ORM\ManyToOne(targetEntity="Annonces\SiteBundle\Entity\Annonce", inversedBy="images")
+    * @ORM\JoinColumn(nullable=true)
+    */
+    private $annonce;
+
+    /**
      * Get id
      *
      * @return integer
@@ -155,4 +161,32 @@ class Media
         }
     }
 
+
+    /**
+     * Set annonce
+     *
+     * @param \Annonces\SiteBundle\Entity\Annonce $annonce
+     * @return Media
+     */
+    public function setAnnonce(\Annonces\SiteBundle\Entity\Annonce $annonce = null)
+    {
+        $this->annonce = $annonce;
+
+        return $this;
+    }
+
+    /**
+     * Get annonce
+     *
+     * @return \Annonces\SiteBundle\Entity\Annonce 
+     */
+    public function getAnnonce()
+    {
+        return $this->annonce;
+    }
+
+     public function __toString()
+    {
+        return $this->fileName;
+    }
 }

@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class MediaType extends AbstractType
+class CategorieType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,8 +15,7 @@ class MediaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            //->add('fileName')
-            ->add('file')
+            ->add('nom')
         ;
     }
     
@@ -26,7 +25,7 @@ class MediaType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Annonces\SiteBundle\Entity\Media'
+            'data_class' => 'Annonces\SiteBundle\Entity\Categorie'
         ));
     }
 
@@ -35,6 +34,6 @@ class MediaType extends AbstractType
      */
     public function getName()
     {
-        return 'annonces_sitebundle_media';
+        return 'annonces_sitebundle_categorie';
     }
 }

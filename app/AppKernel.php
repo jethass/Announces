@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Annonces\UtilisateursBundle\AnnoncesUtilisateursBundle(),
             new Annonces\SiteBundle\AnnoncesSiteBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             
         );
 
