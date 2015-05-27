@@ -79,8 +79,9 @@ class AnnonceType extends AbstractType
 
             ->add('images', 'collection', array(
                 'type'         => new MediaType(),
-                'allow_add'    => true,
-                'allow_delete' => true,
+                'allow_add'     => true,
+                'allow_delete'  => true,
+                'prototype' => true,
                 'label'=>"Images de l'annonce",
                 'by_reference' => false
               ))

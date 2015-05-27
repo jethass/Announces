@@ -372,6 +372,7 @@ class Annonce
         return $this;
     }
 
+
     /**
      * Remove images
      *

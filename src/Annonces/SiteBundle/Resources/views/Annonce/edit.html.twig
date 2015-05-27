@@ -15,17 +15,38 @@
     {{ form_row(edit_form.utilisateur) }}<br/>
     
     {{ form_row(edit_form.images) }}<br/>
+   
+    
 
     {{ form_rest(edit_form) }}
 </form>
 
 <script type="text/javascript">
   $(document).ready(function() {
+    
+    
+
+    {% for key, image in entity.images %}
+       {% set img = image.filename|split('.') %}
+      
+      
+       var image='<h2>{{img[0]}}</h2><img src="{{asset(entity.images[key].webPath) | imagine_filter("my_thumb")  }}" /><br/>';
+      
+       $("#annonces_sitebundle_annonce_images_"+{{key}}).prepend(image);
+       $("#annonces_sitebundle_annonce_images div label").hide();
+        $("#annonces_sitebundle_annonce_images_"+{{key}}+" div label").show();
+       $("#annonces_sitebundle_annonce_images_"+{{key}}+" div label").val("File name");
+    {% endfor %}
+
+    
+
+
     // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
     var $container = $('div#annonces_sitebundle_annonce_images');
 
     // On ajoute un lien pour ajouter une nouvelle catégorie
-    var $addLink = $('<a href="#" id="add_category" class="btn btn-default">Ajouter une image</a>');
+    var $addLink = $('<br/><a href="#" id="add_category" class="btn btn-default">Ajouter une image</a>');
+    
     $container.append($addLink);
 
     // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
@@ -36,29 +57,27 @@
     });
 
     // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
-    var index = $container.find(':input').length;
-    
+    //var index = $container.find(':input').length;
+    var index={{ entity.images|length }}
 
     // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle annonce par exemple).
     if (index == 0) {
-      //addImage($container);
+      addImage($container);
     } else {
       // Pour chaque catégorie déjà existante, on ajoute un lien de suppression
-     /* $container.children('div').each(function() {
+      $container.children('div').each(function() {
         addDeleteLink($(this));
-      });*/
+      });
     }
+
+    
 
     // La fonction qui ajoute un formulaire Categorie
     function addImage($container) {
       // Dans le contenu de l'attribut « data-prototype », on remplace :
       // - le texte "__name__label__" qu'il contient par le label du champ
       // - le texte "__name__" qu'il contient par le numéro du champ
-      
       var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Image n°' + (index+1)).replace(/__name__/g, index));
-    
-       $image=$('<img src="{{asset(entity.images[0].webPath)}}"  />');
-       $prototype.append($image);
      
 
       // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
@@ -82,11 +101,14 @@
       // Ajout du listener sur le clic du lien
       $deleteLink.click(function(e) {
         $prototype.remove();
+
         e.preventDefault(); // évite qu'un # apparaisse dans l'URL
         return false;
       });
     }
-  });
+  
+
+});
 </script>
 
 <ul class="record_actions">

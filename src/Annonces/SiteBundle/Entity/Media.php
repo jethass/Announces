@@ -89,7 +89,8 @@ class Media
         }
         $this->file = $file;
         try {
-            $this->fileName = sha1(uniqid(mt_rand(), true)) . '.' . $file->guessExtension();
+            //$this->fileName = sha1(uniqid(mt_rand(), true)) . '.' . $file->guessExtension();
+             $this->fileName =$this-> getFileName().".".$file->guessExtension(); //$file->getClientOriginalName();
             $this->mimeType = $file->getClientMimeType();
         } catch (\Exception $e) {
 
@@ -104,6 +105,10 @@ class Media
      */
     public function getFile() {
         return $this->file;
+    }
+
+    public function getExtensionFile() {
+      return $this->file->guessExtension();
     }
 
     public function getAbsolutePath() {

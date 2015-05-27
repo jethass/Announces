@@ -182,6 +182,9 @@ class AnnonceController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AnnoncesSiteBundle:Annonce')->find($id);
+        $originalImages = $em->getRepository('AnnoncesSiteBundle:Media')->findBy(array('annonce' => $entity));
+
+        //var_dump($media);die('yoo');
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Annonce entity.');
@@ -192,6 +195,38 @@ class AnnonceController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $images = $entity->getImages();
+              
+           /* foreach ($entity->getImages() as $img) {
+
+                foreach ($originalImages as $key => $toDel) {
+                    if ($toDel === $img) {
+                        unset($originalImages[$key]);
+                    }
+                }
+            }
+
+            foreach ($originalImages as $image) {
+
+                 $em->remove($image);
+            }*/
+
+           foreach ($originalImages as $key => $origImg) {
+                foreach ($entity->getImages() as $img) {
+                      if($origImg->getId()==$img->getId()){
+                         unset($originalImages[$key]);
+                      }
+                }
+           }
+
+           foreach ($originalImages as $image) {
+
+                 $em->remove($image);
+            }
+
+
+            $em->persist($entity);
+
             $em->flush();
 
             return $this->redirect($this->generateUrl('annonce_edit', array('id' => $id)));

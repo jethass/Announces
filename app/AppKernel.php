@@ -20,6 +20,8 @@ class AppKernel extends Kernel
             new Annonces\UtilisateursBundle\AnnoncesUtilisateursBundle(),
             new Annonces\SiteBundle\AnnoncesSiteBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            //new Gregwar\ImageBundle\GregwarImageBundle(),
+             new Liip\ImagineBundle\LiipImagineBundle(),
             
         );
 
