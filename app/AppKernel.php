@@ -22,6 +22,8 @@ class AppKernel extends Kernel
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             //new Gregwar\ImageBundle\GregwarImageBundle(),
              new Liip\ImagineBundle\LiipImagineBundle(),
+             new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),
+             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             
         );
 

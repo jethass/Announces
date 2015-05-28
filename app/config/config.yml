@@ -29,6 +29,9 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form:
+        resources:
+            - LexikFormFilterBundle:Form:form_div_layout.html.twig
 
 # Assetic Configuration
 assetic:
@@ -88,3 +91,20 @@ liip_imagine:
             quality: 75
             filters:
                 thumbnail: { size: [150, 150], mode: outbound }
+        meduim_thumb:
+            quality: 75
+            filters:
+                thumbnail: { size: [200, 200], mode: outbound }
+
+lexik_form_filter:
+    force_case_insensitivity: false
+    where_method: ~  # null | and | or
+
+white_october_pagerfanta:
+    exceptions_strategy:
+        out_of_range_page:        to_http_not_found
+        not_valid_current_page:   to_http_not_found
+
+annonces_site:
+    pagination:
+        max_per_page: 1

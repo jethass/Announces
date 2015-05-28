@@ -12,4 +12,20 @@ use Doctrine\ORM\EntityRepository;
  */
 class AnnonceRepository extends EntityRepository
 {
+
+   public function getAnnonces()
+    {
+        $query = $this->_em->createQuery('SELECT a FROM AnnoncesSiteBundle:Annonce a');
+        return $query;
+    }
+
+    public function getCount()
+    {
+        $query = $this->_em->createQuery('SELECT COUNT(a.id) FROM AnnoncesSiteBundle:Annonce a');
+        $count = $query->getSingleScalarResult();
+
+        return $count;
+    }
+
+
 }

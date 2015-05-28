@@ -14,7 +14,9 @@
     {{ form_row(edit_form.categorie) }}<br/>
     {{ form_row(edit_form.utilisateur) }}<br/>
     
-    {{ form_row(edit_form.images) }}<br/>
+    <div class="grid">
+       {{ form_row(edit_form.images) }}<br/>
+    </div>
    
     
 
@@ -30,7 +32,7 @@
        {% set img = image.filename|split('.') %}
       
       
-       var image='<h2>{{img[0]}}</h2><img src="{{asset(entity.images[key].webPath) | imagine_filter("my_thumb")  }}" /><br/>';
+       var image='<div class="3u"><h2>{{img[0]}}</h2><img src="{{asset(entity.images[key].webPath) | imagine_filter("my_thumb")  }}" /></div>';
       
        $("#annonces_sitebundle_annonce_images_"+{{key}}).prepend(image);
        $("#annonces_sitebundle_annonce_images div label").hide();

@@ -22,7 +22,9 @@
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "friendsofsymfony/jsrouting-bundle": "~1.5",
         "gregwar/image-bundle": "dev-master",
-        "liip/imagine-bundle": "~1.2"
+        "liip/imagine-bundle": "~1.2",
+        "lexik/form-filter-bundle": "~3.0",
+        "white-october/pagerfanta-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

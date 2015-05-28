@@ -1,6 +1,100 @@
 {% extends '::base.html.twig' %}
 
-{% block body -%}
+
+{% block body %}
+<div id="banner-wrapper">
+                    <div id="banner" class="box container">
+                        <div class="row">
+                            <div class="12u">
+                                
+                               
+                                {{ include('AnnoncesSiteBundle:Annonce:form.html.twig', {'form': filterForm}) }}
+      
+                                  <br/>
+                                  <table class="table table-striped">
+                                      <thead>
+                                        <tr>
+                                             <th>Titre :</th>
+                                            <th>Prix :</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        {% for entity in entities %}
+                                         <tr>
+                                             <td>{{ entity.titre }}</td>
+                                             <td>{{ entity.prix | number_format(2, '.', ',')}} €</td>
+                                         </tr>
+                                         {% endfor %}
+                                      </tbody>
+                                    </table>
+
+                                {{ include('AnnoncesSiteBundle:Annonce:navigation.html.twig', {'routeName': 'annonce', 'pager': pager}) }}
+                            </div>
+                            
+                        </div>
+                    </div>
+</div>
+
+ <!-- 
+<div id="main-wrapper">
+    <div class="container">
+                        <div class="row">
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper">
+                                    {% for entity in entities %}
+                                        <div class="swiper-slide">
+                                              <div class="row">
+                                                   <div class="4u">
+                                                               {% if entity.images|length > 0 %}
+                                                                     <a href="#" ><img src="{{asset(entity.images[0].webPath) | imagine_filter('meduim_thumb')  }}" /></a>
+                                                               {% endif %}
+                                                    </div>
+                                                     <div class="8u">
+                                                                <div class="inner">
+                                                                    <header>
+                                                                        <h2>Titre :{{ entity.titre }} </h2>
+                                                                        <p>Prix : {{ entity.prix | number_format(2, '.', ',')}} €</p>
+                                                                    </header>
+                                                                    <p> {{ entity.description }} </p>
+                                                                </div>
+                                                    </div>
+                                                </div>    
+                                        </div>
+
+                                    {% endfor %}
+                                    
+                                    
+                                </div>
+                               
+                                <div class="swiper-pagination"></div>
+                               
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+                            </div>
+                        </div>
+    </div>
+</div>
+
+ -->
+
+
+  <script>
+      /*  var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        paginationClickable: '.swiper-pagination',
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        spaceBetween: 30
+    }); */
+
+
+
+</script>   
+  
+        
+
+<!--
+
     <h1>Annonce list</h1>
 
     <table class="records_list">
@@ -52,4 +146,7 @@
             </a>
         </li>
     </ul>
-    {% endblock %}
+-->
+
+ 
+{% endblock %}

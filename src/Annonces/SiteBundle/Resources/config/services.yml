@@ -1,0 +1,5 @@
+services:
+    form_filter.manager:
+        class: Annonces\SiteBundle\Filter\FormFilterManager
+        arguments: [@session, @request]
+        scope: request

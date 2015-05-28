@@ -1,0 +1,157 @@
+<div class="panel-group filters-form" id="tms-search-form">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a class="panel-title" data-toggle="collapse" data-parent="#tms-search-form" href="#tms-search-form-filters">
+               Search filters
+            </a>
+        </div>
+        <div id="tms-search-form-filters" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <form method="get" action="" class="form-inline">
+                    {{ form_rest(form) }}
+
+                    <hr />
+                    
+                    
+                    <br/>
+
+                      <div id="infoPanel">
+                        <b>Marker status:</b>
+                        <div id="markerStatus"><i>Click and drag the marker.</i></div>
+                        <b>Current position:</b>
+                        <div id="info"></div>
+                        <b>Closest matching address:</b>
+                        <div id="address"></div>
+                      </div>
+
+                      <br/>
+
+                      <div id="map-canvas"></div>
+                      
+
+
+                    <hr />
+                    <input type="submit" class="btn btn-primary" name="submit-filter" value="Filter" />
+                    <input type="submit" class="btn btn-primary" name="reset-filter" value="Reset" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% set request = masterRequest is defined ? masterRequest : app.request %}
+{% if not request.query.has(form.vars.full_name) %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#tms-search-form-filters').collapse();
+        });
+    </script>
+{% endif %}
+
+    <script>
+       
+
+        /*function geocodePosition(pos) {
+              var geocoder = new google.maps.Geocoder();  
+              geocoder.geocode({
+                latLng: pos
+              }, function(responses) {
+                if (responses && responses.length > 0) {
+                  updateMarkerAddress(responses[0].formatted_address);
+                } else {
+                  updateMarkerAddress('Cannot determine address at this location.');
+                }
+              });
+        }*/
+
+       /* var map;
+        var marker;
+
+        function updateMarkerStatus(str) {
+              document.getElementById('markerStatus').innerHTML = str;
+        }
+
+        function updateMarkerPosition(latLng) {
+              document.getElementById('info').innerHTML = [latLng.lat(),latLng.lng()].join(', ');
+        }
+
+        function updateMarkerAddress(str) {
+               document.getElementById('address').innerHTML = str;
+        }
+
+        function initialize() {
+         
+              var latLng = new google.maps.LatLng(-25.363882,131.044922);
+              var mapOptions = {
+                  zoom: 8,
+                  center: latLng
+                }
+               
+                map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+                marker = new google.maps.Marker({
+                    position: latLng,
+                    map: map,
+                    draggable:true,
+                    title:"Drag me!"
+                });
+              
+             
+              // Update current position info.
+              updateMarkerPosition(latLng);
+              //geocodePosition(latLng);
+
+              // Add dragging event listeners.
+              google.maps.event.addListener(marker, 'dragstart', function() {
+                updateMarkerAddress('Dragging...');
+              });
+
+              google.maps.event.addListener(marker, 'drag', function() {
+                updateMarkerStatus('Dragging...');
+                updateMarkerPosition(marker.getPosition());
+              });
+
+              google.maps.event.addListener(marker, 'dragend', function() {
+                updateMarkerStatus('Drag ended');
+                //geocodePosition(marker.getPosition());
+              });
+        }
+
+        // Onload handler to fire off the app.
+        google.maps.event.addDomListener(window, 'load', initialize);*/
+
+
+        var geocoder;
+        var oMap;
+        var sAdresse = "PARIS, FRANCE";
+        function initCarte(){
+          geocoder = new google.maps.Geocoder();
+          var centre = new google.maps.LatLng(  46.80, 1.75);
+          var myOptions = {
+            'zoom' : 8,
+            'center' : centre,
+            'backgroundColor' : '#fff',
+            'mapTypeId' : google.maps.MapTypeId.ROADMAP
+          };
+          oMap = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+          codeAddress();
+        }
+        function codeAddress() {
+          var oMarker;
+          geocoder.geocode({'address': sAdresse}, function( results, status){
+            if (status == google.maps.GeocoderStatus.OK) {
+              // centre la carte sur le 1st
+              oMap.setCenter(results[0].geometry.location);
+              // place un marqueur
+              oMarker = new google.maps.Marker({
+                'map' : oMap,
+                'position' : results[0].geometry.location
+              });
+            }
+          });
+        }
+        // appel fonction au chargement de la page
+        google.maps.event.addDomListener(window, 'load', initCarte);
+
+    </script>

@@ -10,6 +10,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Annonces\SiteBundle\Entity\Annonce;
 use Annonces\SiteBundle\Form\AnnonceType;
 use Annonces\SiteBundle\Form\EditAnnonceType;
+use Annonces\SiteBundle\Filter\AnnonceFilterType;
+use Pagerfanta\Pagerfanta;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
 
 /**
  * Annonce controller.
@@ -19,6 +22,48 @@ use Annonces\SiteBundle\Form\EditAnnonceType;
 class AnnonceController extends Controller
 {
 
+    
+   
+   
+  /*  public function indexAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('AnnoncesSiteBundle:Annonce')->findAll();
+
+        $form = $this->get('form.factory')->create(new AnnonceFilterType());
+
+        if ($this->get('request')->query->has($form->getName())) {
+            // manually bind values from the request
+            $form->submit($this->get('request')->query->get($form->getName()));
+
+            // initialize a query builder
+            $filterBuilder = $em->getRepository('AnnoncesSiteBundle:Annonce')->createQueryBuilder('e');
+            
+
+            // build the query from the given form object
+            $qb=$this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $filterBuilder);
+            // now look at the DQL =)
+            //var_dump($qb->getQuery());die;
+            // var_dump($filterBuilder->getDql());die;
+            
+            $entities = $qb->getQuery()->getResult();
+
+            return array(
+                        'entities' => $entities,
+                        'form' => $form->createView()
+             );
+
+        }else{
+             
+             return array(
+                        'entities' => $entities,
+                        'form' => $form->createView()
+             );
+
+        }
+      
+    }*/
+
     /**
      * Lists all Annonce entities.
      *
@@ -26,16 +71,48 @@ class AnnonceController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
+    
+    public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+                    $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AnnoncesSiteBundle:Annonce')->findAll();
+                    $filterForm = $this->get('form.factory')->create(new AnnonceFilterType());
+                   
+                    $queryBuilder = $em->getRepository('AnnoncesSiteBundle:Annonce')->getAnnonces();
+                    $count = $em->getRepository('AnnoncesSiteBundle:Annonce')->getCount();
 
-        return array(
-            'entities' => $entities,
-        );
+                    if ($this->get('form_filter.manager')->hasFilterData($filterForm->getName())) {
+                        $this->get('form_filter.manager')->submit($filterForm, true);
+
+                        $queryBuilder = $em
+                                ->getRepository('AnnoncesSiteBundle:Annonce')
+                                ->createQueryBuilder('e')
+                        ;
+
+                        $this
+                                ->get('lexik_form_filter.query_builder_updater')
+                                ->addFilterConditions($filterForm, $queryBuilder)
+                        ;
+                    }
+
+                    $pager = new Pagerfanta(new DoctrineORMAdapter($queryBuilder));
+                    $pager->setMaxPerPage($this
+                                    ->container
+                                    ->getParameter('annonces_site.pagination_max_per_page')
+                    );
+                   
+                    $page = $request->query->get('page', 1);
+                    $pager->setCurrentPage($page);
+
+                    return array(
+                        'filterForm' => $filterForm->createView(),
+                        'pager'      => $pager,
+                        'count'      => $count,
+                        'entities'   => $pager->getCurrentPageResults()
+                    );
     }
+
+
     /**
      * Creates a new Annonce entity.
      *

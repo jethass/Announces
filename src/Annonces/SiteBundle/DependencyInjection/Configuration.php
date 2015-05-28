@@ -20,6 +20,20 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('annonces_site');
 
+        $rootNode
+                 ->children()
+                            ->arrayNode('pagination')
+                                                ->addDefaultsIfNotSet()
+                                                ->children()
+                                                    ->integerNode('max_per_page')->min(1)->defaultValue(50)->end()
+                                                ->end()
+                                            ->end()
+                                        ->end()
+                            ;
+
+       
+
+
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
         // more information on that topic.
