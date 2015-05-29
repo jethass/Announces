@@ -59,6 +59,15 @@ class AnnonceFilterType extends AbstractType
                 'required' => false,
             ));
         ;
+
+        $builder->add('cp', 'filter_text', array(
+            'apply_filter' => function (QueryInterface $filterQuery, $field, $values) {
+                if (empty($values['value'])) {
+                    return null;
+                }
+                return $filterQuery->createCondition( $field ." = ". "'".$values["value"]."'" );
+            },
+        ));
         
     }
 

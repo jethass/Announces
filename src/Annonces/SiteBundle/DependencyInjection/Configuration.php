@@ -18,8 +18,8 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
+       
         $rootNode = $treeBuilder->root('annonces_site');
-
         $rootNode
                  ->children()
                             ->arrayNode('pagination')

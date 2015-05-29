@@ -82,6 +82,14 @@ class Annonce
      * @ORM\Column(name="telephone", type="string", nullable=true)
      */
     private $telephone;
+
+
+     /**
+     * @var cp
+     *
+     * @ORM\Column(name="cp", type="integer", nullable=false)
+     */
+    private $cp;
  
     /**
      * @var afficheTelephone
@@ -118,6 +126,8 @@ class Annonce
          $this->images = new \Doctrine\Common\Collections\ArrayCollection();
          $this->date = new \DateTime('now');
     }
+
+    
 
     /**
      * Get id
@@ -268,6 +278,29 @@ class Annonce
     }
 
     /**
+     * Set cp
+     *
+     * @param integer $cp
+     * @return Annonce
+     */
+    public function setCp($cp)
+    {
+        $this->cp = $cp;
+
+        return $this;
+    }
+
+    /**
+     * Get cp
+     *
+     * @return integer 
+     */
+    public function getCp()
+    {
+        return $this->cp;
+    }
+
+    /**
      * Set afficheTelephone
      *
      * @param boolean $afficheTelephone
@@ -371,7 +404,6 @@ class Annonce
         $images->setAnnonce($this);
         return $this;
     }
-
 
     /**
      * Remove images

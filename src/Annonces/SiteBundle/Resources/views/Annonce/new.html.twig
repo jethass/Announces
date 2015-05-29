@@ -1,13 +1,17 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-
+<div id="banner-wrapper">
+                    <div id="banner" class="box container">
+                        <div class="row">
+                            <div class="12u">
 
 <form action="{{ path('annonce_create') }}" method="post" {{ form_enctype(form) }}>
 
     {{ form_row(form.titre) }}<br/>
     {{ form_row(form.description) }}<br/>
     {{ form_row(form.prix) }}<br/>
+    {{ form_row(form.cp) }}<br/>
     {{ form_row(form.active) }}<br/>
     {{ form_row(form.telephone) }}<br/>
     {{ form_row(form.afficheTelephone) }}<br/>
@@ -105,6 +109,8 @@
 </ul>
 
 
-
-
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

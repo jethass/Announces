@@ -45,6 +45,7 @@ class AnnonceType extends AbstractType
                 )
             )
             ->add('prix')
+            ->add('cp')
             ->add('active', 'checkbox', array('required' => false))
            
             ->add('telephone', null, array(
